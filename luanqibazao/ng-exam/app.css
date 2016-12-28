@@ -1,0 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+ul>li{
+    display: inline-block;
+    width: 30%;
+    padding:0 12px;
+    
+}
+ul>li li{
+    width: 100%;
+    display: block;
+    height: 35px;
+    border: 2px solid #ddd;
+    line-height: 35px;
+    vertical-align: bottom;
+}

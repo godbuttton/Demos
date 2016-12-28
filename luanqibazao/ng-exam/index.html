@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular.js"></script>
+    <link rel="styleSheet" type="text/css" href="app.css">
+</head>
+<body ng-controller="ctl">
+    <h1>期中考试(多选)</h1>
+    <ul>
+        <li>
+            <p>1.哪些同学追随过唐僧</p>
+            <ul>
+                <li><input type="checkbox" name="topic1A" ng-model="question[0].A" value="">孙悟空1 <br></li>
+                <li><input type="checkbox" name="topic1B" ng-model="question[0].B" value="">孙悟空2<br></li>
+                <li><input type="checkbox" name="topic1C" ng-model="question[0].C" value="">孙悟空3<br></li>
+                <li><input type="checkbox" name="topic1D" ng-model="question[0].D" value="">孙悟空4<br></li>
+                <li><input type="checkbox" name="topic1E" ng-model="question[0].E" value="">孙悟空5<br></li>
+            </ul>
+        </li>
+        <li>
+            <p>2.哪些同学追随过唐僧</p>
+            <ul>
+                <li><input type="checkbox" name="topic1A" ng-model="question[1].A" value="">孙悟空1 <br></li>
+                <li><input type="checkbox" name="topic1B" ng-model="question[1].B" value="">孙悟空2<br></li>
+                <li><input type="checkbox" name="topic1C" ng-model="question[1].C" value="">孙悟空3<br></li>
+                <li><input type="checkbox" name="topic1D" ng-model="question[1].D" value="">孙悟空4<br></li>
+                <li><input type="checkbox" name="topic1E" ng-model="question[1].E" value="">孙悟空5<br></li>
+            </ul>
+        </li>
+        <li>
+            <p>3.哪些同学追随过唐僧</p>
+            <ul>
+                <li><input type="checkbox" name="topic1A" ng-model="question[2].A" value="">孙悟空1 <br></li>
+                <li><input type="checkbox" name="topic1B" ng-model="question[2].B" value="">孙悟空2<br></li>
+                <li><input type="checkbox" name="topic1C" ng-model="question[2].C" value="">孙悟空3<br></li>
+                <li><input type="checkbox" name="topic1E" ng-model="question[2].D" value="">孙悟空5<br></li>
+            </ul>
+    </ul>
+    <div>
+        <button ng-click="getDate()">提交</button>
+    </div>
+    <script>
+        var app = angular.module("myApp", ['ng']);
+        app.controller('ctl', ['$scope', '$http', function ($scope, $http) {
+            $scope.question = [];
+            $scope.str = "用户答案如下";
+            $scope.getDate = function () {
+                $http.get("xhj.php").success(function (data) { //请求
+                    $scope.data = data;
+                });
+                $scope.question.forEach(function (value, index) { //forEach 遍历数组
+                    var strTemp = '';
+                    for (key in value) {  //for in遍历数组对象 strtemp里面存答案
+                        if (value[key] == true) {
+                            strTemp += (key + '');
+                        }
+                    }
+                    $scope.str += `
+                    第${index+1}题：${strTemp}`;
+                }, this);
+                alert($scope.str);
+            }
+        }])
+    </script>
+</body>
+
+</html>
